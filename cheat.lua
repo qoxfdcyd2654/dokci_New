@@ -1,5 +1,5 @@
 -- dokciNEW Premium с системой тем, уведомлений, ESP и Fly
-local Guis = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
+local Guis = game:GetService("CoreGui")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
