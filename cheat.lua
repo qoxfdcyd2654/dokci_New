@@ -1,4 +1,28 @@
--- dokciNEW Premium с системой тем, уведомлений, ESP и Fly
+--[[
+   dokciNEW Premium v4.0
+   Ultimate Game Enhancement Suite
+   
+   Функции:
+   - 5 цветовых тем
+   - God Mode (Бессмертие)
+   - Speed Hack (Ускорение)
+   - Noclip (Сквозь стены)
+   - Anti-Kill (Защита от убийства)
+   - Ultra Graphics (Ультра графика)
+   - Auto Farm (Авто-фарм)
+   - ESP (Подсветка игроков)
+   - Fly (Полёт)
+   - Server Crash (Краш сервера)
+   - Reset All (Сброс настроек)
+   
+   Управление:
+   - Меню: кнопка "⚡" в правом верхнем углу
+   - Fly: WASD + Space/Shift
+   
+   Автор: dokci
+   Версия: 4.0 (Финальная)
+--]]
+
 local Guis = game:GetService("CoreGui")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
@@ -7,7 +31,6 @@ local LocalPlayer = Players.LocalPlayer
 
 -- Защита от повторной загрузки
 if _G.DOKCI_NEW_LOADED then
-	warn("Dokci NEW Cheat already loaded!")
 	return
 end
 _G.DOKCI_NEW_LOADED = true
@@ -327,9 +350,8 @@ local function toggleESP(enabled)
                 
                 espObjects[player] = highlight
                 
-                -- Обработка появления нового персонажа
                 espConnections[player] = player.CharacterAdded:Connect(function(newChar)
-                    wait(1) -- Ждем появления персонажа
+                    wait(1)
                     if espEnabled then
                         local newHighlight = Instance.new("Highlight")
                         newHighlight.Name = "dokciESP"
@@ -345,7 +367,6 @@ local function toggleESP(enabled)
             end
         end
         
-        -- Обработка новых игроков
         espConnections.playerAdded = Players.PlayerAdded:Connect(function(player)
             player.CharacterAdded:Connect(function(character)
                 if espEnabled and player ~= LocalPlayer then
@@ -365,14 +386,12 @@ local function toggleESP(enabled)
     else
         showNotification("ESP: ВЫКЛ", "info")
         
-        -- Удаляем все подсветки
         for player, highlight in pairs(espObjects) do
             if highlight then
                 highlight:Destroy()
             end
         end
         
-        -- Отключаем все соединения
         for _, connection in pairs(espConnections) do
             if connection then
                 connection:Disconnect()
@@ -397,7 +416,6 @@ local function toggleFly(enabled)
             local rootPart = character:FindFirstChild("HumanoidRootPart")
             
             if humanoid and rootPart then
-                -- Создаем BodyVelocity и BodyGyro для полета
                 bodyVelocity = Instance.new("BodyVelocity")
                 bodyVelocity.Velocity = Vector3.new(0, 0, 0)
                 bodyVelocity.MaxForce = Vector3.new(40000, 40000, 40000)
@@ -409,10 +427,8 @@ local function toggleFly(enabled)
                 bodyGyro.D = 50
                 bodyGyro.Parent = rootPart
                 
-                -- Отключаем гравитацию
                 humanoid.PlatformStand = true
                 
-                -- Обработка управления
                 local flyConnection
                 flyConnection = RunService.Heartbeat:Connect(function()
                     if not flyEnabled or not bodyVelocity or not bodyGyro then
@@ -426,7 +442,6 @@ local function toggleFly(enabled)
                     local velocity = Vector3.new(0, 0, 0)
                     local speed = 50
                     
-                    -- Управление WASD
                     if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.W) then
                         velocity = velocity + (camera.CFrame.LookVector * speed)
                     end
@@ -440,7 +455,6 @@ local function toggleFly(enabled)
                         velocity = velocity + (camera.CFrame.RightVector * speed)
                     end
                     
-                    -- Вверх/вниз (Space/Shift)
                     if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.Space) then
                         velocity = velocity + Vector3.new(0, speed, 0)
                     end
@@ -455,7 +469,6 @@ local function toggleFly(enabled)
     else
         showNotification("Fly: ВЫКЛ", "info")
         
-        -- Восстанавливаем нормальное состояние
         local character = LocalPlayer.Character
         if character then
             local humanoid = character:FindFirstChild("Humanoid")
@@ -875,7 +888,7 @@ CrashServer.Button.MouseButton1Click:Connect(function()
                 wait(0.1)
             end
         end
-        showNotification("Server Crash завершен", "error")
+        showNotification("Server Crash завершен", "success")
     end)
 end)
 
@@ -900,7 +913,6 @@ ResetButton.Button.MouseButton1Click:Connect(function()
     setButtonStatus(ESPButton, false)
     setButtonStatus(FlyButton, false)
 
-    -- Отключаем ESP и Fly
     toggleESP(false)
     toggleFly(false)
 
@@ -930,7 +942,6 @@ ResetButton.Button.MouseButton1Click:Connect(function()
 	Lighting.ClockTime = 14
 
     showNotification("Все настройки сброшены!", "info")
-	print("Все настройки сброшены!")
 end)
 
 -- Защита от убийства
@@ -980,7 +991,3 @@ ApplyTheme("purple")
 
 -- Показываем уведомление о загрузке
 showNotification("dokciNEW v4.0 успешно загружен!", "success")
-
-print("🎨 dokciNEW Premium v4.0 загружен успешно!")
-print("✨ Доступны 5 тем: Фиолетовая, Черная, Белая, Синия, Красная")
-print("🚀 Новые функции: ESP и Fly!")
