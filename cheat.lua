@@ -849,7 +849,7 @@ FlyButton.Button.MouseButton1Click:Connect(function()
 end)
 
 -- Crash Server Button
-local CrashServer = NewButton("Crash", "Server Crash: ВЫКЛ")
+local CrashServer = NewButton("Crash", "Server Crash")
 CrashServer.Button.MouseButton1Click:Connect(function()
     showNotification("Запуск Server Crash...", "warning")
     
