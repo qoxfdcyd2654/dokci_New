@@ -79,7 +79,7 @@ local Themes = {
 		Danger = Color3.fromRGB(255, 94, 0),
 		Text = Color3.fromRGB(93, 0, 255),
 		DarkText = Color3.fromRGB(5, 37, 50),
-		Name = "Синия"
+		Name = "Синяя"
 	},
 	["red"] = {
 		Background = Color3.fromRGB(147, 0, 2),
